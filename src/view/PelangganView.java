@@ -1,18 +1,18 @@
-package views;
+package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
-public class BarangView extends JFrame {
-    private JTextField txtId, txtNama, txtStok, txtHarga, txtSearch;
+public class PelangganView extends JFrame {
+    private JTextField txtId, txtNama, txtAlamat, txtSearch;
     private JButton btnTambah, btnEdit, btnHapus, btnClear;
-    private JTable tableBarang;
+    private JTable tablePelanggan;
 
-    public BarangView() {
-        setTitle("Kelola Data Barang (Plafon PVC)");
-        setSize(800, 500);
+    public PelangganView() {
+        setTitle("Kelola Data Pelanggan");
+        setSize(700, 450);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
@@ -20,22 +20,19 @@ public class BarangView extends JFrame {
     }
 
     private void initComponents() {
-        // Panel Input (Atas)
-        JPanel panelInput = new JPanel(new GridLayout(4, 2, 5, 5));
-        panelInput.setBorder(BorderFactory.createTitledBorder("Form Data Barang"));
+        // Panel Input
+        JPanel panelInput = new JPanel(new GridLayout(3, 2, 5, 5));
+        panelInput.setBorder(BorderFactory.createTitledBorder("Form Data Pelanggan"));
 
-        panelInput.add(new JLabel("ID Barang (Otomatis):"));
+        panelInput.add(new JLabel("ID Pelanggan (Auto):"));
         txtId = new JTextField(); txtId.setEditable(false);
         panelInput.add(txtId);
 
-        panelInput.add(new JLabel("Nama Barang:"));
+        panelInput.add(new JLabel("Nama Pelanggan:"));
         txtNama = new JTextField(); panelInput.add(txtNama);
 
-        panelInput.add(new JLabel("Stok:"));
-        txtStok = new JTextField(); panelInput.add(txtStok);
-
-        panelInput.add(new JLabel("Harga:"));
-        txtHarga = new JTextField(); panelInput.add(txtHarga);
+        panelInput.add(new JLabel("Alamat:"));
+        txtAlamat = new JTextField(); panelInput.add(txtAlamat);
 
         // Panel Tombol
         JPanel panelTombol = new JPanel();
@@ -48,15 +45,15 @@ public class BarangView extends JFrame {
         panelAtas.add(panelInput, BorderLayout.CENTER);
         panelAtas.add(panelTombol, BorderLayout.SOUTH);
 
-        // Panel Tabel & Search (Bawah)
+        // Panel Tabel & Search
         JPanel panelBawah = new JPanel(new BorderLayout());
         JPanel panelSearch = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelSearch.add(new JLabel("Cari Barang:"));
+        panelSearch.add(new JLabel("Cari Pelanggan:"));
         txtSearch = new JTextField(20);
         panelSearch.add(txtSearch);
 
-        tableBarang = new JTable();
-        JScrollPane scrollPane = new JScrollPane(tableBarang);
+        tablePelanggan = new JTable();
+        JScrollPane scrollPane = new JScrollPane(tablePelanggan);
 
         panelBawah.add(panelSearch, BorderLayout.NORTH);
         panelBawah.add(scrollPane, BorderLayout.CENTER);
@@ -65,22 +62,19 @@ public class BarangView extends JFrame {
         add(panelBawah, BorderLayout.CENTER);
     }
 
-    // Getter untuk diakses Controller
     public JTextField getTxtId() { return txtId; }
     public JTextField getTxtNama() { return txtNama; }
-    public JTextField getTxtStok() { return txtStok; }
-    public JTextField getTxtHarga() { return txtHarga; }
+    public JTextField getTxtAlamat() { return txtAlamat; }
     public JTextField getTxtSearch() { return txtSearch; }
     public JButton getBtnTambah() { return btnTambah; }
     public JButton getBtnEdit() { return btnEdit; }
     public JButton getBtnHapus() { return btnHapus; }
     public JButton getBtnClear() { return btnClear; }
-    public JTable getTableBarang() { return tableBarang; }
+    public JTable getTablePelanggan() { return tablePelanggan; }
 
-    // Metode untuk Sorting Tabel
     public void setTableModel(DefaultTableModel model) {
-        tableBarang.setModel(model);
+        tablePelanggan.setModel(model);
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-        tableBarang.setRowSorter(sorter); // Ini memenuhi syarat Sorting otomatis
+        tablePelanggan.setRowSorter(sorter);
     }
 }

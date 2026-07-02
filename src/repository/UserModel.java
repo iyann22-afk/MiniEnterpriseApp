@@ -1,6 +1,6 @@
-package models;
+package repository;
 
-import utils.Database;
+import database.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
