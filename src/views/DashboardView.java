@@ -35,7 +35,14 @@ public class DashboardView extends JFrame {
             btn.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
             // --- TAMBAHKAN LOGIKA KLIK DI SINI ---
-            if (menu.equals("Data Barang")) {
+            if (menu.equals("Kategori")) {
+                btn.addActionListener(e -> {
+                    views.KategoriView kView = new views.KategoriView();
+                    models.KategoriModel kModel = new models.KategoriModel();
+                    new controllers.KategoriController(kView, kModel);
+                    kView.setVisible(true);
+                });
+            } else if (menu.equals("Data Barang")) {
                 btn.addActionListener(e -> {
                     // Buka MVC Barang
                     views.BarangView bView = new views.BarangView();
@@ -50,7 +57,7 @@ public class DashboardView extends JFrame {
                     new controllers.PelangganController(pView, pModel);
                     pView.setVisible(true);
                 });
-            } else if (menu.equals("Pemasok")) { 
+            } else if (menu.equals("Pemasok")) {
                 btn.addActionListener(e -> {
                     views.PemasokView supView = new views.PemasokView();
                     models.PemasokModel supModel = new models.PemasokModel();
