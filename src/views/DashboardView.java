@@ -64,6 +64,14 @@ public class DashboardView extends JFrame {
                     new controllers.PemasokController(supView, supModel);
                     supView.setVisible(true);
                 });
+            } else if (menu.equals("Transaksi Masuk")) {
+                btn.addActionListener(e -> {
+                    views.TransaksiMasukView tmView = new views.TransaksiMasukView();
+                    models.TransaksiMasukModel tmModel = new models.TransaksiMasukModel();
+                    new controllers.TransaksiMasukController(tmView, tmModel);
+                    tmView.setVisible(true);
+                });
+            } else if (menu.equals("Transaksi Keluar")) {
             } else if (menu.equals("Logout")) {
                 btn.addActionListener(e -> {
                     this.dispose(); // Tutup dashboard
