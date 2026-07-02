@@ -1,4 +1,4 @@
-package database;
+package database; // Ganti tulisan 'database' jadi 'utils' kalau nama package-mu belum di-rename
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,24 +8,19 @@ import javax.swing.JOptionPane;
 public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/db_toko_plafon";
     private static final String USER = "root";
-    private static final String PASS = ""; // Sesuaikan jika XAMPP kamu pakai password
-    private static Connection connection;
+    private static final String PASS = "";
 
-    // Exception Handling & Singleton OOP Pattern
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                // Memuat driver MySQL
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                connection = DriverManager.getConnection(URL, USER, PASS);
-                System.out.println("Koneksi Database Berhasil!");
-            } catch (ClassNotFoundException | SQLException e) {
-                JOptionPane.showMessageDialog(null,
-                        "Koneksi Database Gagal: " + e.getMessage(),
-                        "Error Database", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // KUNCI PERBAIKAN: Kita langsung return koneksi baru.
+            // Tidak ada lagi pengecekan if (connection == null) yang bikin error!
+            return DriverManager.getConnection(URL, USER, PASS);
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Koneksi Database Gagal: " + e.getMessage(),
+                    "Error Database", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
-        return connection;
     }
 }

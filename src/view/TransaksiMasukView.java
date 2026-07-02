@@ -6,13 +6,14 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class TransaksiMasukView extends JFrame {
-    private JTextField txtIdMasuk, txtIdBarang, txtIdPemasok, txtTanggal, txtJumlah, txtSearch;
+    private JTextField txtIdMasuk, txtTanggal, txtJumlah, txtSearch;
+    private JComboBox<String> cmbBarang, cmbPemasok;
     private JButton btnTambah, btnHapus, btnClear;
     private JTable tableTransaksi;
 
     public TransaksiMasukView() {
         setTitle("Transaksi Masuk (Restock)");
-        setSize(750, 500);
+        setSize(850, 550);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
@@ -27,14 +28,17 @@ public class TransaksiMasukView extends JFrame {
         txtIdMasuk = new JTextField(); txtIdMasuk.setEditable(false);
         panelInput.add(txtIdMasuk);
 
-        panelInput.add(new JLabel("ID Barang:"));
-        txtIdBarang = new JTextField(); panelInput.add(txtIdBarang);
+        panelInput.add(new JLabel("Pilih Barang:"));
+        cmbBarang = new JComboBox<>(); panelInput.add(cmbBarang);
 
-        panelInput.add(new JLabel("ID Pemasok:"));
-        txtIdPemasok = new JTextField(); panelInput.add(txtIdPemasok);
+        panelInput.add(new JLabel("Pilih Pemasok:"));
+        cmbPemasok = new JComboBox<>(); panelInput.add(cmbPemasok);
 
-        panelInput.add(new JLabel("Tanggal (YYYY-MM-DD):"));
-        txtTanggal = new JTextField(); panelInput.add(txtTanggal);
+        panelInput.add(new JLabel("Tanggal (Otomatis):"));
+        txtTanggal = new JTextField();
+        txtTanggal.setText(java.time.LocalDate.now().toString()); // Ambil tanggal hari ini
+        txtTanggal.setEditable(false); // Kunci biar ga bisa diedit manual
+        panelInput.add(txtTanggal);
 
         panelInput.add(new JLabel("Jumlah Barang:"));
         txtJumlah = new JTextField(); panelInput.add(txtJumlah);
@@ -50,7 +54,7 @@ public class TransaksiMasukView extends JFrame {
 
         JPanel panelBawah = new JPanel(new BorderLayout());
         JPanel panelSearch = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelSearch.add(new JLabel("Cari Tanggal (YYYY-MM-DD):"));
+        panelSearch.add(new JLabel("Cari Tanggal:"));
         txtSearch = new JTextField(20);
         panelSearch.add(txtSearch);
 
@@ -60,13 +64,16 @@ public class TransaksiMasukView extends JFrame {
         panelBawah.add(panelSearch, BorderLayout.NORTH);
         panelBawah.add(scrollPane, BorderLayout.CENTER);
 
-        add(panelAtas, BorderLayout.NORTH);
-        add(panelBawah, BorderLayout.CENTER);
+        // FITUR PEMISAH BISA DIGESER (SPLIT PANE)
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAtas, panelBawah);
+        splitPane.setDividerLocation(230); // Posisi batas awal
+        splitPane.setOneTouchExpandable(true);
+        add(splitPane, BorderLayout.CENTER);
     }
 
     public JTextField getTxtIdMasuk() { return txtIdMasuk; }
-    public JTextField getTxtIdBarang() { return txtIdBarang; }
-    public JTextField getTxtIdPemasok() { return txtIdPemasok; }
+    public JComboBox<String> getCmbBarang() { return cmbBarang; }
+    public JComboBox<String> getCmbPemasok() { return cmbPemasok; }
     public JTextField getTxtTanggal() { return txtTanggal; }
     public JTextField getTxtJumlah() { return txtJumlah; }
     public JTextField getTxtSearch() { return txtSearch; }
@@ -77,7 +84,6 @@ public class TransaksiMasukView extends JFrame {
 
     public void setTableModel(DefaultTableModel model) {
         tableTransaksi.setModel(model);
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-        tableTransaksi.setRowSorter(sorter);
+        tableTransaksi.setRowSorter(new TableRowSorter<>(model));
     }
 }
