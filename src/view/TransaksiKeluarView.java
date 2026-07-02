@@ -6,7 +6,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
 public class TransaksiKeluarView extends JFrame {
-    private JTextField txtIdKeluar, txtIdBarang, txtIdPelanggan, txtTanggal, txtJumlah, txtTotal, txtSearch;
+    private JTextField txtIdKeluar, txtTanggal, txtJumlah, txtTotal, txtSearch;
+    private JComboBox<String> cmbBarang, cmbPelanggan;
     private JButton btnTambah, btnHapus, btnClear, btnLaporan;
     private JTable tableTransaksi;
 
@@ -27,14 +28,17 @@ public class TransaksiKeluarView extends JFrame {
         txtIdKeluar = new JTextField(); txtIdKeluar.setEditable(false);
         panelInput.add(txtIdKeluar);
 
-        panelInput.add(new JLabel("ID Barang:"));
-        txtIdBarang = new JTextField(); panelInput.add(txtIdBarang);
+        panelInput.add(new JLabel("Pilih Barang:"));
+        cmbBarang = new JComboBox<>(); panelInput.add(cmbBarang);
 
-        panelInput.add(new JLabel("ID Pelanggan:"));
-        txtIdPelanggan = new JTextField(); panelInput.add(txtIdPelanggan);
+        panelInput.add(new JLabel("Pilih Pelanggan:"));
+        cmbPelanggan = new JComboBox<>(); panelInput.add(cmbPelanggan);
 
-        panelInput.add(new JLabel("Tanggal (YYYY-MM-DD):"));
-        txtTanggal = new JTextField(); panelInput.add(txtTanggal);
+        panelInput.add(new JLabel("Tanggal (Otomatis):"));
+        txtTanggal = new JTextField();
+        txtTanggal.setText(java.time.LocalDate.now().toString()); // Ambil tanggal hari ini
+        txtTanggal.setEditable(false); // Kunci biar ga bisa diedit manual
+        panelInput.add(txtTanggal);
 
         panelInput.add(new JLabel("Jumlah Jual:"));
         txtJumlah = new JTextField(); panelInput.add(txtJumlah);
@@ -67,13 +71,15 @@ public class TransaksiKeluarView extends JFrame {
         panelBawah.add(panelSearch, BorderLayout.NORTH);
         panelBawah.add(scrollPane, BorderLayout.CENTER);
 
-        add(panelAtas, BorderLayout.NORTH);
-        add(panelBawah, BorderLayout.CENTER);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panelAtas, panelBawah);
+        splitPane.setDividerLocation(250);
+        splitPane.setOneTouchExpandable(true);
+        add(splitPane, BorderLayout.CENTER);
     }
 
     public JTextField getTxtIdKeluar() { return txtIdKeluar; }
-    public JTextField getTxtIdBarang() { return txtIdBarang; }
-    public JTextField getTxtIdPelanggan() { return txtIdPelanggan; }
+    public JComboBox<String> getCmbBarang() { return cmbBarang; }
+    public JComboBox<String> getCmbPelanggan() { return cmbPelanggan; }
     public JTextField getTxtTanggal() { return txtTanggal; }
     public JTextField getTxtJumlah() { return txtJumlah; }
     public JTextField getTxtTotal() { return txtTotal; }
