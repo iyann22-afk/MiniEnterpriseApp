@@ -72,6 +72,12 @@ public class DashboardView extends JFrame {
                     tmView.setVisible(true);
                 });
             } else if (menu.equals("Transaksi Keluar")) {
+                btn.addActionListener(e -> {
+                    views.TransaksiKeluarView tkView = new views.TransaksiKeluarView();
+                    models.TransaksiKeluarModel tkModel = new models.TransaksiKeluarModel();
+                    new controllers.TransaksiKeluarController(tkView, tkModel);
+                    tkView.setVisible(true);
+                });
             } else if (menu.equals("Logout")) {
                 btn.addActionListener(e -> {
                     this.dispose(); // Tutup dashboard
