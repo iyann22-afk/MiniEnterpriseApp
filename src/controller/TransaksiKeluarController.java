@@ -1,7 +1,7 @@
-package controllers;
+package controller;
 
-import models.TransaksiKeluarModel;
-import views.TransaksiKeluarView;
+import repository.TransaksiKeluarModel;
+import view.TransaksiKeluarView;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
