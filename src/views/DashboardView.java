@@ -43,12 +43,19 @@ public class DashboardView extends JFrame {
                     new controllers.BarangController(bView, bModel);
                     bView.setVisible(true);
                 });
-            } else if (menu.equals("Pelanggan")) { 
+            } else if (menu.equals("Pelanggan")) {
                 btn.addActionListener(e -> {
                     views.PelangganView pView = new views.PelangganView();
                     models.PelangganModel pModel = new models.PelangganModel();
                     new controllers.PelangganController(pView, pModel);
                     pView.setVisible(true);
+                });
+            } else if (menu.equals("Pemasok")) { 
+                btn.addActionListener(e -> {
+                    views.PemasokView supView = new views.PemasokView();
+                    models.PemasokModel supModel = new models.PemasokModel();
+                    new controllers.PemasokController(supView, supModel);
+                    supView.setVisible(true);
                 });
             } else if (menu.equals("Logout")) {
                 btn.addActionListener(e -> {
