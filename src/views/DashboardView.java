@@ -43,6 +43,13 @@ public class DashboardView extends JFrame {
                     new controllers.BarangController(bView, bModel);
                     bView.setVisible(true);
                 });
+            } else if (menu.equals("Pelanggan")) { 
+                btn.addActionListener(e -> {
+                    views.PelangganView pView = new views.PelangganView();
+                    models.PelangganModel pModel = new models.PelangganModel();
+                    new controllers.PelangganController(pView, pModel);
+                    pView.setVisible(true);
+                });
             } else if (menu.equals("Logout")) {
                 btn.addActionListener(e -> {
                     this.dispose(); // Tutup dashboard
