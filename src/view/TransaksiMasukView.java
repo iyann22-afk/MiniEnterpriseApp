@@ -1,18 +1,18 @@
-package views;
+package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 
-public class TransaksiKeluarView extends JFrame {
-    private JTextField txtIdKeluar, txtIdBarang, txtIdPelanggan, txtTanggal, txtJumlah, txtTotal, txtSearch;
-    private JButton btnTambah, btnHapus, btnClear, btnLaporan;
+public class TransaksiMasukView extends JFrame {
+    private JTextField txtIdMasuk, txtIdBarang, txtIdPemasok, txtTanggal, txtJumlah, txtSearch;
+    private JButton btnTambah, btnHapus, btnClear;
     private JTable tableTransaksi;
 
-    public TransaksiKeluarView() {
-        setTitle("Transaksi Keluar (Penjualan & Laporan)");
-        setSize(850, 550);
+    public TransaksiMasukView() {
+        setTitle("Transaksi Masuk (Restock)");
+        setSize(750, 500);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
@@ -20,36 +20,29 @@ public class TransaksiKeluarView extends JFrame {
     }
 
     private void initComponents() {
-        JPanel panelInput = new JPanel(new GridLayout(6, 2, 5, 5));
-        panelInput.setBorder(BorderFactory.createTitledBorder("Form Penjualan"));
+        JPanel panelInput = new JPanel(new GridLayout(5, 2, 5, 5));
+        panelInput.setBorder(BorderFactory.createTitledBorder("Form Transaksi Masuk"));
 
         panelInput.add(new JLabel("ID Transaksi (Auto):"));
-        txtIdKeluar = new JTextField(); txtIdKeluar.setEditable(false);
-        panelInput.add(txtIdKeluar);
+        txtIdMasuk = new JTextField(); txtIdMasuk.setEditable(false);
+        panelInput.add(txtIdMasuk);
 
         panelInput.add(new JLabel("ID Barang:"));
         txtIdBarang = new JTextField(); panelInput.add(txtIdBarang);
 
-        panelInput.add(new JLabel("ID Pelanggan:"));
-        txtIdPelanggan = new JTextField(); panelInput.add(txtIdPelanggan);
+        panelInput.add(new JLabel("ID Pemasok:"));
+        txtIdPemasok = new JTextField(); panelInput.add(txtIdPemasok);
 
         panelInput.add(new JLabel("Tanggal (YYYY-MM-DD):"));
         txtTanggal = new JTextField(); panelInput.add(txtTanggal);
 
-        panelInput.add(new JLabel("Jumlah Jual:"));
+        panelInput.add(new JLabel("Jumlah Barang:"));
         txtJumlah = new JTextField(); panelInput.add(txtJumlah);
 
-        panelInput.add(new JLabel("Total Harga:"));
-        txtTotal = new JTextField(); panelInput.add(txtTotal);
-
         JPanel panelTombol = new JPanel();
-        btnTambah = new JButton("Catat Penjualan"); btnHapus = new JButton("Hapus Data");
-        btnClear = new JButton("Clear Form");
-        btnLaporan = new JButton("CETAK LAPORAN (CSV)");
-        btnLaporan.setBackground(new Color(39, 174, 96)); btnLaporan.setForeground(Color.WHITE);
-
-        panelTombol.add(btnTambah); panelTombol.add(btnHapus);
-        panelTombol.add(btnClear); panelTombol.add(btnLaporan);
+        btnTambah = new JButton("Tambah Transaksi");
+        btnHapus = new JButton("Hapus Data"); btnClear = new JButton("Clear Form");
+        panelTombol.add(btnTambah); panelTombol.add(btnHapus); panelTombol.add(btnClear);
 
         JPanel panelAtas = new JPanel(new BorderLayout());
         panelAtas.add(panelInput, BorderLayout.CENTER);
@@ -57,7 +50,7 @@ public class TransaksiKeluarView extends JFrame {
 
         JPanel panelBawah = new JPanel(new BorderLayout());
         JPanel panelSearch = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelSearch.add(new JLabel("Cari Tanggal:"));
+        panelSearch.add(new JLabel("Cari Tanggal (YYYY-MM-DD):"));
         txtSearch = new JTextField(20);
         panelSearch.add(txtSearch);
 
@@ -71,21 +64,20 @@ public class TransaksiKeluarView extends JFrame {
         add(panelBawah, BorderLayout.CENTER);
     }
 
-    public JTextField getTxtIdKeluar() { return txtIdKeluar; }
+    public JTextField getTxtIdMasuk() { return txtIdMasuk; }
     public JTextField getTxtIdBarang() { return txtIdBarang; }
-    public JTextField getTxtIdPelanggan() { return txtIdPelanggan; }
+    public JTextField getTxtIdPemasok() { return txtIdPemasok; }
     public JTextField getTxtTanggal() { return txtTanggal; }
     public JTextField getTxtJumlah() { return txtJumlah; }
-    public JTextField getTxtTotal() { return txtTotal; }
     public JTextField getTxtSearch() { return txtSearch; }
     public JButton getBtnTambah() { return btnTambah; }
     public JButton getBtnHapus() { return btnHapus; }
     public JButton getBtnClear() { return btnClear; }
-    public JButton getBtnLaporan() { return btnLaporan; }
     public JTable getTableTransaksi() { return tableTransaksi; }
 
     public void setTableModel(DefaultTableModel model) {
         tableTransaksi.setModel(model);
-        tableTransaksi.setRowSorter(new TableRowSorter<>(model));
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        tableTransaksi.setRowSorter(sorter);
     }
 }

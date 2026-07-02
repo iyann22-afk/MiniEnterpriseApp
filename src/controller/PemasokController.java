@@ -1,7 +1,7 @@
-package controllers;
+package controller;
 
-import models.KategoriModel;
-import views.KategoriView;
+import repository.PemasokModel;
+import view.PemasokView;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -9,11 +9,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class KategoriController {
-    private KategoriView view;
-    private KategoriModel model;
+public class PemasokController {
+    private PemasokView view;
+    private PemasokModel model;
 
-    public KategoriController(KategoriView view, KategoriModel model) {
+    public PemasokController(PemasokView view, PemasokModel model) {
         this.view = view;
         this.model = model;
 
@@ -24,23 +24,27 @@ public class KategoriController {
     private void initController() {
         view.getBtnTambah().addActionListener(e -> {
             String nama = view.getTxtNama().getText();
-            if (nama.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Nama kategori tidak boleh kosong!");
+            String kontak = view.getTxtKontak().getText();
+
+            if (nama.isEmpty() || kontak.isEmpty()) {
+                JOptionPane.showMessageDialog(view, "Data tidak boleh kosong!");
                 return;
             }
-            if (model.tambah(nama)) {
-                JOptionPane.showMessageDialog(view, "Kategori ditambah!");
+
+            if (model.tambah(nama, kontak)) {
+                JOptionPane.showMessageDialog(view, "Pemasok berhasil ditambah!");
                 loadData(""); clearForm();
             }
         });
 
-        view.getTableKategori().addMouseListener(new MouseAdapter() {
+        view.getTablePemasok().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                int row = view.getTableKategori().getSelectedRow();
-                int modelRow = view.getTableKategori().convertRowIndexToModel(row);
+                int row = view.getTablePemasok().getSelectedRow();
+                int modelRow = view.getTablePemasok().convertRowIndexToModel(row);
 
-                view.getTxtId().setText(view.getTableKategori().getModel().getValueAt(modelRow, 0).toString());
-                view.getTxtNama().setText(view.getTableKategori().getModel().getValueAt(modelRow, 1).toString());
+                view.getTxtId().setText(view.getTablePemasok().getModel().getValueAt(modelRow, 0).toString());
+                view.getTxtNama().setText(view.getTablePemasok().getModel().getValueAt(modelRow, 1).toString());
+                view.getTxtKontak().setText(view.getTablePemasok().getModel().getValueAt(modelRow, 2).toString());
             }
         });
 
@@ -48,9 +52,10 @@ public class KategoriController {
             if (view.getTxtId().getText().isEmpty()) return;
             int id = Integer.parseInt(view.getTxtId().getText());
             String nama = view.getTxtNama().getText();
+            String kontak = view.getTxtKontak().getText();
 
-            if (model.update(id, nama)) {
-                JOptionPane.showMessageDialog(view, "Kategori diupdate!");
+            if (model.update(id, nama, kontak)) {
+                JOptionPane.showMessageDialog(view, "Pemasok diupdate!");
                 loadData(""); clearForm();
             }
         });
@@ -59,7 +64,7 @@ public class KategoriController {
             if (view.getTxtId().getText().isEmpty()) return;
             int id = Integer.parseInt(view.getTxtId().getText());
             if (model.hapus(id)) {
-                JOptionPane.showMessageDialog(view, "Kategori dihapus!");
+                JOptionPane.showMessageDialog(view, "Pemasok dihapus!");
                 loadData(""); clearForm();
             }
         });
@@ -74,12 +79,13 @@ public class KategoriController {
     }
 
     private void loadData(String keyword) {
-        view.setTableModel(model.getKategori(keyword));
+        view.setTableModel(model.getPemasok(keyword));
     }
 
     private void clearForm() {
         view.getTxtId().setText("");
         view.getTxtNama().setText("");
-        view.getTableKategori().clearSelection();
+        view.getTxtKontak().setText("");
+        view.getTablePemasok().clearSelection();
     }
 }

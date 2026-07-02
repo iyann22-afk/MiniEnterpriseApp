@@ -1,4 +1,4 @@
-package views;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,52 +37,52 @@ public class DashboardView extends JFrame {
             // --- TAMBAHKAN LOGIKA KLIK DI SINI ---
             if (menu.equals("Kategori")) {
                 btn.addActionListener(e -> {
-                    views.KategoriView kView = new views.KategoriView();
-                    models.KategoriModel kModel = new models.KategoriModel();
-                    new controllers.KategoriController(kView, kModel);
+                    view.KategoriView kView = new view.KategoriView();
+                    repository.KategoriModel kModel = new repository.KategoriModel();
+                    new controller.KategoriController(kView, kModel);
                     kView.setVisible(true);
                 });
             } else if (menu.equals("Data Barang")) {
                 btn.addActionListener(e -> {
                     // Buka MVC Barang
-                    views.BarangView bView = new views.BarangView();
-                    models.BarangModel bModel = new models.BarangModel();
-                    new controllers.BarangController(bView, bModel);
+                    view.BarangView bView = new view.BarangView();
+                    repository.BarangModel bModel = new repository.BarangModel();
+                    new controller.BarangController(bView, bModel);
                     bView.setVisible(true);
                 });
             } else if (menu.equals("Pelanggan")) {
                 btn.addActionListener(e -> {
-                    views.PelangganView pView = new views.PelangganView();
-                    models.PelangganModel pModel = new models.PelangganModel();
-                    new controllers.PelangganController(pView, pModel);
+                    view.PelangganView pView = new view.PelangganView();
+                    repository.PelangganModel pModel = new repository.PelangganModel();
+                    new controller.PelangganController(pView, pModel);
                     pView.setVisible(true);
                 });
             } else if (menu.equals("Pemasok")) {
                 btn.addActionListener(e -> {
-                    views.PemasokView supView = new views.PemasokView();
-                    models.PemasokModel supModel = new models.PemasokModel();
-                    new controllers.PemasokController(supView, supModel);
+                    view.PemasokView supView = new view.PemasokView();
+                    repository.PemasokModel supModel = new repository.PemasokModel();
+                    new controller.PemasokController(supView, supModel);
                     supView.setVisible(true);
                 });
             } else if (menu.equals("Transaksi Masuk")) {
                 btn.addActionListener(e -> {
-                    views.TransaksiMasukView tmView = new views.TransaksiMasukView();
-                    models.TransaksiMasukModel tmModel = new models.TransaksiMasukModel();
-                    new controllers.TransaksiMasukController(tmView, tmModel);
+                    view.TransaksiMasukView tmView = new view.TransaksiMasukView();
+                    repository.TransaksiMasukModel tmModel = new repository.TransaksiMasukModel();
+                    new controller.TransaksiMasukController(tmView, tmModel);
                     tmView.setVisible(true);
                 });
             } else if (menu.equals("Transaksi Keluar")) {
                 btn.addActionListener(e -> {
-                    views.TransaksiKeluarView tkView = new views.TransaksiKeluarView();
-                    models.TransaksiKeluarModel tkModel = new models.TransaksiKeluarModel();
-                    new controllers.TransaksiKeluarController(tkView, tkModel);
+                    view.TransaksiKeluarView tkView = new view.TransaksiKeluarView();
+                    repository.TransaksiKeluarModel tkModel = new repository.TransaksiKeluarModel();
+                    new controller.TransaksiKeluarController(tkView, tkModel);
                     tkView.setVisible(true);
                 });
             } else if (menu.equals("Logout")) {
                 btn.addActionListener(e -> {
                     this.dispose(); // Tutup dashboard
                     // Kembali ke halaman utama/login
-                    new controllers.LoginController(new views.LoginView(), new models.UserModel());
+                    new controller.LoginController(new view.LoginView(), new repository.UserModel());
                 });
             }
             // -------------------------------------

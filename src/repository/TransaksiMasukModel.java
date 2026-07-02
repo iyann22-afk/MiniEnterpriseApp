@@ -1,6 +1,6 @@
-package models;
+package repository;
 
-import utils.Database;
+import database.Database;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

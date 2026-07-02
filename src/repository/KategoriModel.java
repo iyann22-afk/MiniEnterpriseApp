@@ -1,16 +1,16 @@
-package models;
+package repository;
 
-import utils.Database;
+import database.Database;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PelangganModel {
-    public DefaultTableModel getPelanggan(String keyword) {
-        DefaultTableModel tableModel = new DefaultTableModel(new String[]{"ID Pelanggan", "Nama Pelanggan", "Alamat"}, 0);
-        String query = "SELECT * FROM pelanggan WHERE nama_pelanggan LIKE ?";
+public class KategoriModel {
+    public DefaultTableModel getKategori(String keyword) {
+        DefaultTableModel tableModel = new DefaultTableModel(new String[]{"ID Kategori", "Nama Kategori"}, 0);
+        String query = "SELECT * FROM kategori WHERE nama_kategori LIKE ?";
 
         try {
             Connection conn = Database.getConnection();
@@ -20,9 +20,8 @@ public class PelangganModel {
 
             while (rs.next()) {
                 tableModel.addRow(new Object[]{
-                        rs.getInt("id_pelanggan"),
-                        rs.getString("nama_pelanggan"),
-                        rs.getString("alamat")
+                        rs.getInt("id_kategori"),
+                        rs.getString("nama_kategori")
                 });
             }
         } catch (SQLException e) {
@@ -31,27 +30,25 @@ public class PelangganModel {
         return tableModel;
     }
 
-    public boolean tambah(String nama, String alamat) {
-        String query = "INSERT INTO pelanggan (nama_pelanggan, alamat) VALUES (?, ?)";
+    public boolean tambah(String nama) {
+        String query = "INSERT INTO kategori (nama_kategori) VALUES (?)";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, nama);
-            stmt.setString(2, alamat);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) { return false; }
     }
 
-    public boolean update(int id, String nama, String alamat) {
-        String query = "UPDATE pelanggan SET nama_pelanggan=?, alamat=? WHERE id_pelanggan=?";
+    public boolean update(int id, String nama) {
+        String query = "UPDATE kategori SET nama_kategori=? WHERE id_kategori=?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, nama);
-            stmt.setString(2, alamat);
-            stmt.setInt(3, id);
+            stmt.setInt(2, id);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) { return false; }
     }
 
     public boolean hapus(int id) {
-        String query = "DELETE FROM pelanggan WHERE id_pelanggan=?";
+        String query = "DELETE FROM kategori WHERE id_kategori=?";
         try (Connection conn = Database.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             return stmt.executeUpdate() > 0;

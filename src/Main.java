@@ -1,6 +1,6 @@
-import controllers.LoginController;
-import models.UserModel;
-import views.LoginView;
+import controller.LoginController;
+import repository.UserModel;
+import view.LoginView;
 import javax.swing.SwingUtilities;
 
 public class Main {

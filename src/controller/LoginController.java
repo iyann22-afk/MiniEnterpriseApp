@@ -1,8 +1,8 @@
-package controllers;
+package controller;
 
-import models.UserModel;
-import views.LoginView;
-import views.DashboardView;
+import repository.UserModel;
+import view.LoginView;
+import view.DashboardView;
 import javax.swing.*;
 
 public class LoginController {

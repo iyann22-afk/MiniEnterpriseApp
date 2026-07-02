@@ -1,7 +1,7 @@
-package controllers;
+package controller;
 
-import models.BarangModel;
-import views.BarangView;
+import repository.BarangModel;
+import view.BarangView;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
